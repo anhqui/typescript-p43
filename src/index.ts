@@ -1,36 +1,37 @@
-//-----------
-// any type
-//-----------
+//---------
+// tuples
+//---------
 
-let age: any
-let title
-
-age = 30
-age = false
-
-title = 25
-title = {
-    hello: 'world'
-}
-
-//--------------------
-// any type in arrays
-//--------------------
-let things: any[] =  ['hello', true, 30, null]
-things.push({id: 123})
+let person: [string, number, boolean] = ['John', 30, true]
 
 
-//-----------------
-// functions & any
-//-----------------
+//----------------
+// tuples example
+//----------------
+ let hsla: [number, string, string, number]
+ hsla = [200, '100%', '50%', 1]
 
-function addTogether(value: any):any{
-    return value + value
-}
+ let xy: [number, number]
+ xy = [25.6, 35]
 
-const resultOne = addTogether('hello')
-const resultTwo = addTogether(3)
+ function useCoords(): [number, number]{
+  // get coords
+  const lat = 100
+  const long = 50
+
+  return [lat, long]
+
+ }
+
+ const [lat, long] = useCoords()
 
 
-// useful when migrating from js to ts
-// because using any won't cause errors initially
+//---------------
+// named tuples
+//---------------
+
+let user: [name: string, age: number]
+
+user = ['Mary', 35]
+
+console.log(user[0]);
