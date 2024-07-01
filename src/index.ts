@@ -1,37 +1,44 @@
-//---------
-// tuples
-//---------
+//------------
+// interfaces
+//-----------
 
-let person: [string, number, boolean] = ['John', 30, true]
+interface Author{
+    name: string
+    avatar: string
+}
+
+const authorOne: Author = {name: 'Mary', avatar: '/img/mary.png'}
+
+interface Post{
+    title: string
+    body: string
+    tags: string[]
+    create_at: Date
+    author: Author
+}
+
+const newPost = {
+    title: 'my first post',
+    body: 'typescript is awesome',
+    tags: ['tuples', 'any', 'interface'],
+    create_at: new Date(),
+    author: authorOne
+}
 
 
-//----------------
-// tuples example
-//----------------
- let hsla: [number, string, string, number]
- hsla = [200, '100%', '50%', 1]
+//----------------------------
+// as function argument types
+//----------------------------
 
- let xy: [number, number]
- xy = [25.6, 35]
+function createPost(post: Post):void{
+    console.log(`Created post ${post.title} by ${post.author.name}`);
+}
 
- function useCoords(): [number, number]{
-  // get coords
-  const lat = 100
-  const long = 50
-
-  return [lat, long]
-
- }
-
- const [lat, long] = useCoords()
-
+createPost(newPost)
 
 //---------------
-// named tuples
+// with arrays
 //---------------
 
-let user: [name: string, age: number]
-
-user = ['Mary', 35]
-
-console.log(user[0]);
+let posts: Post[] = []
+posts.push(newPost)

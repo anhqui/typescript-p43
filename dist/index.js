@@ -1,25 +1,24 @@
 "use strict";
-//---------
-// tuples
-//---------
-let person = ['John', 30, true];
-//----------------
-// tuples example
-//----------------
-let hsla;
-hsla = [200, '100%', '50%', 1];
-let xy;
-xy = [25.6, 35];
-function useCoords() {
-    // get coords
-    const lat = 100;
-    const long = 50;
-    return [lat, long];
+//------------
+// interfaces
+//-----------
+const authorOne = { name: 'Mary', avatar: '/img/mary.png' };
+const newPost = {
+    title: 'my first post',
+    body: 'typescript is awesome',
+    tags: ['tuples', 'any', 'interface'],
+    create_at: new Date(),
+    author: authorOne
+};
+//----------------------------
+// as function argument types
+//----------------------------
+function createPost(post) {
+    console.log(`Created post ${post.title} by ${post.author.name}`);
 }
-const [lat, long] = useCoords();
+createPost(newPost);
 //---------------
-// named tuples
+// with arrays
 //---------------
-let user;
-user = ['Mary', 35];
-console.log(user[0]);
+let posts = [];
+posts.push(newPost);
