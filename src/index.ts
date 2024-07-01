@@ -1,44 +1,62 @@
-//------------
-// interfaces
-//-----------
+//-----------------------------
+// interface feature/properties
+//-----------------------------
 
 interface Author{
+  readonly id: number
+  name: string
+  avatar?: string
+}
+
+const authorOne: Author = {id: 1, name: 'Mary', avatar: '/img/mary.png'}
+const authorTwo: Author = {id: 2,  name: 'John'}
+
+
+//--------------------
+// function interface
+//--------------------
+
+interface MathFunc{
+    (x: number, y: number): number
+}
+
+const add: MathFunc = (x: number, y: number): number => x + y
+const sub: MathFunc = (x: number, y: number): number => x - y
+
+//--------------
+// type aliases
+//--------------
+
+// example 1 - tuple
+
+type Rgb = [number, number, number]
+
+function getRandomColor(): Rgb{
+    const r = Math.floor(Math.random() * 255)
+    const g = Math.floor(Math.random() * 255)
+    const b = Math.floor(Math.random() * 255)
+    return [r,g,b]
+}
+
+const colorOne = getRandomColor()
+const colorTwo = getRandomColor()
+
+console.log(colorOne, colorTwo);
+
+
+// example 2 - object literal
+
+type User = {
     name: string
-    avatar: string
+    score: number
 }
 
-const authorOne: Author = {name: 'Mary', avatar: '/img/mary.png'}
+const userOne: User = {name: 'Qui', score: 80}
 
-interface Post{
-    title: string
-    body: string
-    tags: string[]
-    create_at: Date
-    author: Author
+function formatUser(user: User):void{
+    console.log(`${user.name} has a score of ${user.score}`);
+    
 }
 
-const newPost = {
-    title: 'my first post',
-    body: 'typescript is awesome',
-    tags: ['tuples', 'any', 'interface'],
-    create_at: new Date(),
-    author: authorOne
-}
-
-
-//----------------------------
-// as function argument types
-//----------------------------
-
-function createPost(post: Post):void{
-    console.log(`Created post ${post.title} by ${post.author.name}`);
-}
-
-createPost(newPost)
-
-//---------------
-// with arrays
-//---------------
-
-let posts: Post[] = []
-posts.push(newPost)
+formatUser(userOne)
+formatUser({name: 'John', score: 100})

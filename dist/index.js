@@ -1,24 +1,23 @@
 "use strict";
-//------------
-// interfaces
-//-----------
-const authorOne = { name: 'Mary', avatar: '/img/mary.png' };
-const newPost = {
-    title: 'my first post',
-    body: 'typescript is awesome',
-    tags: ['tuples', 'any', 'interface'],
-    create_at: new Date(),
-    author: authorOne
-};
-//----------------------------
-// as function argument types
-//----------------------------
-function createPost(post) {
-    console.log(`Created post ${post.title} by ${post.author.name}`);
+//-----------------------------
+// interface feature/properties
+//-----------------------------
+const authorOne = { id: 1, name: 'Mary', avatar: '/img/mary.png' };
+const authorTwo = { id: 2, name: 'John' };
+const add = (x, y) => x + y;
+const sub = (x, y) => x - y;
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    return [r, g, b];
 }
-createPost(newPost);
-//---------------
-// with arrays
-//---------------
-let posts = [];
-posts.push(newPost);
+const colorOne = getRandomColor();
+const colorTwo = getRandomColor();
+console.log(colorOne, colorTwo);
+const userOne = { name: 'Qui', score: 80 };
+function formatUser(user) {
+    console.log(`${user.name} has a score of ${user.score}`);
+}
+formatUser(userOne);
+formatUser({ name: 'John', score: 100 });
