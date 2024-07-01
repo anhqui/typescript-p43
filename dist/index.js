@@ -1,24 +1,27 @@
 "use strict";
 //-----------
-// functions
+// any type
 //-----------
-function addTwoNumbers(a, b) {
-    return a + b;
-}
-addTwoNumbers(1, 2);
-const substractTwoNumbers = (a, b) => {
-    return a - b;
+let age;
+let title;
+age = 30;
+age = false;
+title = 25;
+title = {
+    hello: 'world'
 };
-substractTwoNumbers(3, 2);
-function addAllNumbers(items) {
-    const total = items.reduce((a, c) => a + c, 0);
-    console.log(total);
+//--------------------
+// any type in arrays
+//--------------------
+let things = ['hello', true, 30, null];
+things.push({ id: 123 });
+//-----------------
+// functions & any
+//-----------------
+function addTogether(value) {
+    return value + value;
 }
-addAllNumbers([1, 2, 3, 5, 8, 10]);
-//-----------------------
-// return type inference
-//-----------------------
-function formatGreeting(name, greeting) {
-    return `${greeting}, ${name}`;
-}
-formatGreeting('Qui', 'hello');
+const resultOne = addTogether('hello');
+const resultTwo = addTogether(3);
+// useful when migrating from js to ts
+// because using any won't cause errors initially
