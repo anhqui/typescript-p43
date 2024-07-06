@@ -1,31 +1,48 @@
 
 //-------------
-// union types
+// type guards
 //-------------
 
-let someId: number | string
+type Id = number | string 
 
-someId = 1
-someId = '2'
+function swapIdType(id: Id){
+   if(typeof id === 'string') {
+    // can use string methods
+    return parseInt(id)
+   }else{
+    // can use number methods and properties
+    return id.toString()
+   }
+}
 
-let email: string | null = null
+const idOne = swapIdType(1)
+const idTwo = swapIdType('2')
+console.log(idOne, idTwo);
 
-email =  'john@gmail.com'
 
-email = null
+//------------------
+// tagged interfaces
+//------------------
 
-type Id = number | string
-let anotherId: Id
+interface User{
+    type: 'user'
+    username: string
+    email: string
+    id: Id
+}
 
-anotherId = 'hello'
-anotherId = 10
+interface Person{
+    type: 'person'
+    firstname: string
+    age: number
+    id: Id
+}
 
-// union type pitfall
-
-function swapIdType(id: Id): Id{
-    // can only use props and methods common to
-    // both number and string types
-    // parseInt(id) --> not allowed
-
-    return id
+function logDetails(value: User | Person): void{
+  if(value.type === 'user'){
+    console.log(value.email, value.username);
+  }
+  if(value.type === 'person'){
+    console.log(value.firstname, value.age);
+  }
 }
