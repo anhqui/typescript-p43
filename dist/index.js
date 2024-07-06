@@ -1,23 +1,20 @@
 "use strict";
-//-----------------------------
-// interface feature/properties
-//-----------------------------
-const authorOne = { id: 1, name: 'Mary', avatar: '/img/mary.png' };
-const authorTwo = { id: 2, name: 'John' };
-const add = (x, y) => x + y;
-const sub = (x, y) => x - y;
-function getRandomColor() {
-    const r = Math.floor(Math.random() * 255);
-    const g = Math.floor(Math.random() * 255);
-    const b = Math.floor(Math.random() * 255);
-    return [r, g, b];
+//-------------
+// union types
+//-------------
+let someId;
+someId = 1;
+someId = '2';
+let email = null;
+email = 'john@gmail.com';
+email = null;
+let anotherId;
+anotherId = 'hello';
+anotherId = 10;
+// union type pitfall
+function swapIdType(id) {
+    // can only use props and methods common to
+    // both number and string types
+    // parseInt(id) --> not allowed
+    return id;
 }
-const colorOne = getRandomColor();
-const colorTwo = getRandomColor();
-console.log(colorOne, colorTwo);
-const userOne = { name: 'Qui', score: 80 };
-function formatUser(user) {
-    console.log(`${user.name} has a score of ${user.score}`);
-}
-formatUser(userOne);
-formatUser({ name: 'John', score: 100 });
