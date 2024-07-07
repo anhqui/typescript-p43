@@ -1,25 +1,40 @@
 "use strict";
 //--------------------
-// reusable interfaces
+// function signatures
 //--------------------
-const something = { quantity: 50 };
-function printQuantity(item) {
-    console.log(`the quantity of the item is ${item.quantity}`);
+function addTwoNumbers(a, b) {
+    return a + b;
 }
-const fruit = {
-    name: 'mango',
-    quantity: 50
+function multiplyTwoNumbers(first, second) {
+    return first * second;
+}
+function squareNumber(num) {
+    return num * num;
+}
+function joinTwoNumbers(numOne, numTwo) {
+    return `${numOne}${numTwo}`;
+}
+let calcs = [];
+calcs.push(addTwoNumbers);
+calcs.push(multiplyTwoNumbers);
+// calcs.push(joinTwoNumbers)
+calcs.push(squareNumber);
+// interface HasArea{
+//     name: string
+//     calcArea(a: number): number   // ---> another way to declare calcArea signature
+// }
+const shapeOne = {
+    name: 'square',
+    calcArea(l) {
+        return l * l;
+    }
 };
-const vehicle = {
-    name: 'car',
-    quantity: 20
+const shapeTwo = {
+    name: 'circle',
+    calcArea(r) {
+        return Math.PI * Math.pow(r, 2);
+    }
 };
-const person = {
-    name: 'John',
-    age: 30
-};
-printQuantity(fruit);
-printQuantity(vehicle);
-// printQuantity(person)
-printQuantity({ quantity: 30 });
-// printQuantity({name: 'mango',quantity: 50})
+const squareArea = shapeOne.calcArea(5);
+const circleArea = shapeTwo.calcArea(10);
+console.log(squareArea, circleArea);

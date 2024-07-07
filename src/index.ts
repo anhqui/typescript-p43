@@ -1,35 +1,62 @@
 //--------------------
-// reusable interfaces
+// function signatures
 //--------------------
 
-interface hasQuantity{
-    quantity: number
+type Calculator = (numOne: number, numTwo: number) => number
+
+function addTwoNumbers(a: number, b: number){
+    return a + b
 }
 
-const something: hasQuantity = {quantity: 50}
-
-function printQuantity(item: hasQuantity): void{
-    console.log(`the quantity of the item is ${item.quantity}`);
+function multiplyTwoNumbers(first: number, second: number){
+    return first * second
 }
 
-const fruit = {
-    name: 'mango',
-    quantity: 50
+function squareNumber(num: number){
+    return num * num
 }
 
-const vehicle = {
-    name: 'car',
-    quantity: 20
+function joinTwoNumbers(numOne: number, numTwo: number){
+    return `${numOne}${numTwo}`
 }
 
-const person = {
-    name: 'John',
-    age: 30
+let calcs: Calculator[] = []
+
+calcs.push(addTwoNumbers)
+calcs.push(multiplyTwoNumbers)
+// calcs.push(joinTwoNumbers)
+calcs.push(squareNumber)
+
+//----------------------------------
+// function signatures on interfaces
+//----------------------------------
+
+interface HasArea{
+    name: string
+    calcArea: (a: number) => number
 }
 
-printQuantity(fruit)
-printQuantity(vehicle)
-// printQuantity(person)
 
-printQuantity({quantity: 30})
-// printQuantity({name: 'mango',quantity: 50})
+// interface HasArea{
+//     name: string
+//     calcArea(a: number): number   // ---> another way to declare calcArea signature
+// }
+
+const shapeOne: HasArea = {
+    name: 'square',
+    calcArea(l: number){
+        return l * l
+    }
+}
+
+const shapeTwo: HasArea = {
+    name: 'circle',
+    calcArea(r: number){
+        return Math.PI * Math.pow(r, 2)
+    }
+}
+
+const squareArea = shapeOne.calcArea(5)
+const circleArea = shapeTwo.calcArea(10)
+
+console.log(squareArea, circleArea);
