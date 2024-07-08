@@ -1,62 +1,44 @@
-//--------------------
-// function signatures
-//--------------------
+//---------------------
+// extending interfaces
+//---------------------
 
-type Calculator = (numOne: number, numTwo: number) => number
-
-function addTwoNumbers(a: number, b: number){
-    return a + b
+interface HasFormater{
+    format(): string
 }
 
-function multiplyTwoNumbers(first: number, second: number){
-    return first * second
+interface Bill extends HasFormater{
+    id: string | number
+    amount: number
+    server: string
 }
 
-function squareNumber(num: number){
-    return num * num
-}
-
-function joinTwoNumbers(numOne: number, numTwo: number){
-    return `${numOne}${numTwo}`
-}
-
-let calcs: Calculator[] = []
-
-calcs.push(addTwoNumbers)
-calcs.push(multiplyTwoNumbers)
-// calcs.push(joinTwoNumbers)
-calcs.push(squareNumber)
-
-//----------------------------------
-// function signatures on interfaces
-//----------------------------------
-
-interface HasArea{
-    name: string
-    calcArea: (a: number) => number
-}
-
-
-// interface HasArea{
-//     name: string
-//     calcArea(a: number): number   // ---> another way to declare calcArea signature
-// }
-
-const shapeOne: HasArea = {
-    name: 'square',
-    calcArea(l: number){
-        return l * l
+const user = {
+    id: 1,
+    format(): string{
+        return `This user has an id of ${this.id}`
     }
 }
 
-const shapeTwo: HasArea = {
-    name: 'circle',
-    calcArea(r: number){
-        return Math.PI * Math.pow(r, 2)
+const bill = {
+    id: 2,
+    amount: 50,
+    server: 'mary',
+    format(): string{
+        return `Bill with id ${this.id} has $${this.amount} to pay`
     }
 }
 
-const squareArea = shapeOne.calcArea(5)
-const circleArea = shapeTwo.calcArea(10)
+function printFormatted(val: HasFormater): void{
+    console.log(val.format());
+}
 
-console.log(squareArea, circleArea);
+function printBill(bill: Bill):void{
+    console.log('server ', bill.server);
+    console.log(bill.amount);
+}
+
+printFormatted(user)
+printFormatted(bill)
+
+// printBill(user)
+printBill(bill)
