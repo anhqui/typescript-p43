@@ -1,35 +1,42 @@
-//-----------------------
-// extending type aliases
-//-----------------------
+//------------
+// classes 101
+//------------
 
-type Person = {
-    id: string | number
-    firstName: string
+type Base = 'classic' | 'thick' | 'thin' | 'garlic'
+
+class Pizza{
+    constructor(title: string, price: number){
+        this.title = title
+        this.price = price
+    }
+    title: string
+    price: number
+    base: Base = 'classic'
+    toppings: string[] = []
+    addTopping(topping: string): void{
+        this.toppings.push(topping)
+    }
+    removeTopping(topping: string): void{
+        this.toppings = this.toppings.filter(t => t !== topping)
+    }
+    selectBase(b: Base):void{
+        this.base = b
+    }
 }
 
-type User = Person & {
-    email: string
-}
+const pizza = new Pizza('qui special', 15)
+const pizzaTwo = new Pizza('john special', 25)
 
-const personOne = {
-    id: 1,
-    firstName: 'john'
-}
+pizza.title
+pizzaTwo.price
 
-const personTwo = {
-    id: '2',
-    firstName: 'mary',
-    email: 'mary@gmail.com'
-}
+pizza.selectBase('garlic')
+pizza.addTopping('mushrooms')
+pizza.addTopping('olives')
+pizza.addTopping('onion')
 
-const personThree = {
-    email: 'david@gmail.com'
-}
+pizza.removeTopping('mushrooms')
 
-function printUser(user: User){
-    console.log(user.id, user.email, user.firstName);
-}
+console.log(pizza);
 
-// printUser(personOne)
-printUser(personTwo)
-// printUser(personThree)
+
