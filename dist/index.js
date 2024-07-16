@@ -4,10 +4,10 @@
 //------------
 class Pizza {
     constructor(title, price) {
-        this.base = 'classic';
-        this.toppings = [];
         this.title = title;
         this.price = price;
+        this.base = 'classic';
+        this.toppings = [];
     }
     addTopping(topping) {
         this.toppings.push(topping);
@@ -21,8 +21,6 @@ class Pizza {
 }
 const pizza = new Pizza('qui special', 15);
 const pizzaTwo = new Pizza('john special', 25);
-pizza.title;
-pizzaTwo.price;
 pizza.selectBase('garlic');
 pizza.addTopping('mushrooms');
 pizza.addTopping('olives');
