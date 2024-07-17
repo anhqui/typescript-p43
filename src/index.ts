@@ -21,16 +21,15 @@ class Pizza{
     }
 }
 
-const pizza = new Pizza('qui special', 15)
+const pizzaOne: Pizza = new Pizza('qui special', 15)
 const pizzaTwo = new Pizza('john special', 25)
 
-pizza.selectBase('garlic')
-pizza.addTopping('mushrooms')
-pizza.addTopping('olives')
-pizza.addTopping('onion')
+function addMushroomsToPizzas(pizzas: Pizza[]):void{
+    for(const p of pizzas){
+        p.addTopping('mushrooms')
+    }
+}
 
-pizza.removeTopping('mushrooms')
+addMushroomsToPizzas([pizzaOne, pizzaTwo])
 
-console.log(pizza);
-
-
+console.log(pizzaOne, pizzaTwo);
