@@ -2,10 +2,18 @@
 //------------
 // classes 101
 //------------
-class Pizza {
+class MenuItem {
     constructor(title, price) {
         this.title = title;
         this.price = price;
+    }
+    get details() {
+        return `${this.title} - $${this.price}`;
+    }
+}
+class Pizza extends MenuItem {
+    constructor(title, price) {
+        super(title, price);
         this.base = 'classic';
         this.toppings = [];
     }
@@ -19,12 +27,10 @@ class Pizza {
         this.base = b;
     }
 }
-const pizzaOne = new Pizza('qui special', 15);
-const pizzaTwo = new Pizza('john special', 25);
-function addMushroomsToPizzas(pizzas) {
-    for (const p of pizzas) {
-        p.addTopping('mushrooms');
-    }
+const pizza = new Pizza('qui special', 15);
+// console.log(pizza.details());
+// console.log(pizza.details);
+function printMenuItem(item) {
+    console.log(item.details);
 }
-addMushroomsToPizzas([pizzaOne, pizzaTwo]);
-console.log(pizzaOne, pizzaTwo);
+printMenuItem(pizza);
