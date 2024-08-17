@@ -1,50 +1,33 @@
 "use strict";
-//------------
-// classes 101
-//------------
-class MenuItem {
-    constructor(title, price) {
-        this.title = title;
-        this.price = price;
+//--------------------
+// CSV Writer Project
+//--------------------
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
+class CSVWriter {
+    constructor(columns) {
+        this.columns = columns;
+        this.csv = this.columns.join(',') + '\n';
+        // 'from,to,amount,notes'
     }
-    get details() {
-        return `${this.title} - $${this.price}`;
+    save(filename) {
+        (0, fs_1.appendFileSync)(filename, this.csv);
+        this.csv = '\n';
+        console.log('file saved to', filename);
     }
-}
-// const item = new MenuItem()
-class Pizza extends MenuItem {
-    constructor(title, price) {
-        super(title, price);
-        this.base = 'classic';
-        this.toppings = [];
+    addRows(values) {
+        let rows = values.map(v => this.formatRow(v));
+        this.csv += rows.join('\n');
+        console.log(this.csv);
     }
-    addTopping(topping) {
-        this.toppings.push(topping);
-    }
-    removeTopping(topping) {
-        this.toppings = this.toppings.filter(t => t !== topping);
-    }
-    selectBase(b) {
-        this.base = b;
-    }
-    format() {
-        let formatted = this.details + '\n';
-        //base
-        formatted += `Pizza on a ${this.base} base `;
-        //toppings
-        if (this.toppings.length < 1) {
-            formatted += 'with no toppings';
-        }
-        if (this.toppings.length > 0) {
-            formatted += `with ${this.toppings.join(', ')}`;
-        }
-        return formatted;
+    formatRow(p) {
+        return this.columns.map(col => p[col]).join(',');
+        // 'john,mary,500,web dev fee'
     }
 }
-const pizza = new Pizza('qui special', 15);
-function printFormatted(val) {
-    console.log(val.format());
-}
-pizza.addTopping('mushrooms');
-pizza.addTopping('peppers');
-printFormatted(pizza);
+const writer = new CSVWriter(['from', 'to', 'amount', 'notes']);
+writer.addRows([
+    { from: 'john', to: 'mary', amount: 500, notes: 'web dev fee' },
+    { from: 'alex', to: 'peter', amount: 250, notes: 'logo design' }
+]);
+writer.save('./data/payments.csv');

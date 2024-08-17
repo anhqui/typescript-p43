@@ -1,62 +1,53 @@
-//------------
-// classes 101
-//------------
+//--------------------
+// CSV Writer Project
+//--------------------
 
-type Base = 'classic' | 'thick' | 'thin' | 'garlic'
+import {appendFileSync} from 'fs'
 
-interface HasFormatter{
-    format(): string
+interface Payment{
+    from: string
+    to: string
+    amount: number
+    notes: string
 }
 
-abstract class MenuItem implements HasFormatter{
-    constructor(private title: string, private price: number){}
-    get details(): string{
-        return `${this.title} - $${this.price}`
+type PaymentColumns = ('from' | 'to' | 'amount' | 'notes')[]
+
+class CSVWriter{
+    constructor(private columns: PaymentColumns){
+        this.csv = this.columns.join(',') + '\n';
+        // 'from,to,amount,notes'
     }
-    abstract format():string 
+
+    private csv: string
+
+    save(filename: string): void{
+        appendFileSync(filename, this.csv)
+
+        this.csv ='\n'
+        console.log('file saved to', filename);
+        
+    }
+
+    addRows(values: Payment[]): void{
+        let rows = values.map(v=> this.formatRow(v))
+        this.csv += rows.join('\n')
+        console.log(this.csv);
+    }
+
+    private formatRow(p: Payment): string{
+        return this.columns.map(col => p[col]).join(',')
+        // 'john,mary,500,web dev fee'
+    }
+
 }
 
-// const item = new MenuItem()
 
-class Pizza extends MenuItem{
-    constructor( title: string,  price: number){
-        super(title, price)
-    }
-    
-    private base: Base = 'classic'
-    private toppings: string[] = []
+const writer = new CSVWriter(['from', 'to', 'amount', 'notes'])
 
-    addTopping(topping: string): void{
-        this.toppings.push(topping)
-    }
-    removeTopping(topping: string): void{
-        this.toppings = this.toppings.filter(t => t !== topping)
-    }
-    selectBase(b: Base):void{
-        this.base = b
-    }
-    format(): string {
-        let formatted = this.details + '\n'
-        //base
-        formatted += `Pizza on a ${this.base} base `
-        //toppings
-        if(this.toppings.length < 1){
-            formatted += 'with no toppings'
-        }
-        if(this.toppings.length > 0){
-            formatted += `with ${this.toppings.join(', ')}`
-        }
-        return formatted
-    }
-}
+writer.addRows([
+    {from: 'john', to: 'mary', amount: 500, notes: 'web dev fee'},
+    {from: 'alex', to: 'peter', amount: 250, notes: 'logo design'}
+])
 
-const pizza = new Pizza('qui special', 15)
-
-function printFormatted(val: HasFormatter):void{
-    console.log(val.format());
-    
-}
-
-pizza.addTopping('mushrooms')
-pizza.addTopping('peppers')
-printFormatted(pizza)
+writer.save('./data/payments.csv')
