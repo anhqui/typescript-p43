@@ -1,51 +1,29 @@
-//--------------
-// Generics 101
-//--------------
+//------------------
+// Intersection Type
+//------------------
 
-function logAndReturnString(val: string): string{
-    console.log(val);
-    return val
-}
-function logAndReturnNumber(val: number): number{
-    console.log(val);
-    return val
-}
-function logAndReturnBoolean(val: boolean): boolean{
-    console.log(val);
-    return val
-}
+// type Person = {
+//     firstName: string
+//     id: number
+// }
 
-const result = logAndReturnNumber(5)
+// type User = Person & {
+//     email: string
+// }
 
-const myString = logAndReturnString('hello')
-
-function logAndReturnValue<T>(val: T): T{
-    console.log(val);
-    return val;  
+interface HasID{
+    id: number
 }
 
-const resultAny = logAndReturnValue('hello world')
-const resultOne = logAndReturnValue(5)
-
-// example 2
-
-function getRandomArrayValue<T>(values: T[]): T{
-    const i = Math.floor(Math.random() * values.length)
-    return values[i]
+function addIdToValue<T>(val: T): T & HasID{
+    const id = Math.random()
+    return {...val, id}
 }
 
-interface User{
-    name: string
-    score: number
+interface Post{
+    title: string
+    thumbsUp: number
 }
+const post = addIdToValue<Post>({title: 'TypeScript for beginners', thumbsUp: 1500})
 
-const users: User[] = [
-    {name: 'john', score: 100},
-    {name: 'mary', score: 150},
-    {name: 'david', score: 75},
-    {name: 'jen', score: 90}
-]
-
-const randomUser = getRandomArrayValue<User>(users)
-
-console.log(randomUser);
+console.log(post.id, post.title, post.thumbsUp);
