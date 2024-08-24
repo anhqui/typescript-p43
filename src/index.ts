@@ -1,53 +1,51 @@
-//--------------------
-// CSV Writer Project
-//--------------------
+//--------------
+// Generics 101
+//--------------
 
-import {appendFileSync} from 'fs'
-
-interface Payment{
-    from: string
-    to: string
-    amount: number
-    notes: string
+function logAndReturnString(val: string): string{
+    console.log(val);
+    return val
+}
+function logAndReturnNumber(val: number): number{
+    console.log(val);
+    return val
+}
+function logAndReturnBoolean(val: boolean): boolean{
+    console.log(val);
+    return val
 }
 
-type PaymentColumns = ('from' | 'to' | 'amount' | 'notes')[]
+const result = logAndReturnNumber(5)
 
-class CSVWriter{
-    constructor(private columns: PaymentColumns){
-        this.csv = this.columns.join(',') + '\n';
-        // 'from,to,amount,notes'
-    }
+const myString = logAndReturnString('hello')
 
-    private csv: string
-
-    save(filename: string): void{
-        appendFileSync(filename, this.csv)
-
-        this.csv ='\n'
-        console.log('file saved to', filename);
-        
-    }
-
-    addRows(values: Payment[]): void{
-        let rows = values.map(v=> this.formatRow(v))
-        this.csv += rows.join('\n')
-        console.log(this.csv);
-    }
-
-    private formatRow(p: Payment): string{
-        return this.columns.map(col => p[col]).join(',')
-        // 'john,mary,500,web dev fee'
-    }
-
+function logAndReturnValue<T>(val: T): T{
+    console.log(val);
+    return val;  
 }
 
+const resultAny = logAndReturnValue('hello world')
+const resultOne = logAndReturnValue(5)
 
-const writer = new CSVWriter(['from', 'to', 'amount', 'notes'])
+// example 2
 
-writer.addRows([
-    {from: 'john', to: 'mary', amount: 500, notes: 'web dev fee'},
-    {from: 'alex', to: 'peter', amount: 250, notes: 'logo design'}
-])
+function getRandomArrayValue<T>(values: T[]): T{
+    const i = Math.floor(Math.random() * values.length)
+    return values[i]
+}
 
-writer.save('./data/payments.csv')
+interface User{
+    name: string
+    score: number
+}
+
+const users: User[] = [
+    {name: 'john', score: 100},
+    {name: 'mary', score: 150},
+    {name: 'david', score: 75},
+    {name: 'jen', score: 90}
+]
+
+const randomUser = getRandomArrayValue<User>(users)
+
+console.log(randomUser);

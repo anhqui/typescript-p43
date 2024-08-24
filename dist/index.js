@@ -1,33 +1,37 @@
 "use strict";
-//--------------------
-// CSV Writer Project
-//--------------------
-Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = require("fs");
-class CSVWriter {
-    constructor(columns) {
-        this.columns = columns;
-        this.csv = this.columns.join(',') + '\n';
-        // 'from,to,amount,notes'
-    }
-    save(filename) {
-        (0, fs_1.appendFileSync)(filename, this.csv);
-        this.csv = '\n';
-        console.log('file saved to', filename);
-    }
-    addRows(values) {
-        let rows = values.map(v => this.formatRow(v));
-        this.csv += rows.join('\n');
-        console.log(this.csv);
-    }
-    formatRow(p) {
-        return this.columns.map(col => p[col]).join(',');
-        // 'john,mary,500,web dev fee'
-    }
+//--------------
+// Generics 101
+//--------------
+function logAndReturnString(val) {
+    console.log(val);
+    return val;
 }
-const writer = new CSVWriter(['from', 'to', 'amount', 'notes']);
-writer.addRows([
-    { from: 'john', to: 'mary', amount: 500, notes: 'web dev fee' },
-    { from: 'alex', to: 'peter', amount: 250, notes: 'logo design' }
-]);
-writer.save('./data/payments.csv');
+function logAndReturnNumber(val) {
+    console.log(val);
+    return val;
+}
+function logAndReturnBoolean(val) {
+    console.log(val);
+    return val;
+}
+const result = logAndReturnNumber(5);
+const myString = logAndReturnString('hello');
+function logAndReturnValue(val) {
+    console.log(val);
+    return val;
+}
+const resultAny = logAndReturnValue('hello world');
+const resultOne = logAndReturnValue(5);
+// example 2
+function getRandomArrayValue(values) {
+    const i = Math.floor(Math.random() * values.length);
+    return values[i];
+}
+const users = [
+    { name: 'john', score: 100 },
+    { name: 'mary', score: 150 },
+    { name: 'david', score: 75 },
+    { name: 'jen', score: 90 }
+];
+const randomUser = getRandomArrayValue(users);
+console.log(randomUser);
