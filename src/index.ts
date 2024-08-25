@@ -1,31 +1,39 @@
 //------------------
-// Generic Interface
+// Generic Classes
 //------------------
 
-interface Collection<T>{
-    data: T[]
+
+class DataCollection<T>{
+    constructor(private data: T[]){}
+
+    loadOne(): T{
+        const i = Math.floor(Math.random() * this.data.length)
+        return this.data[i]
+    }
+    loadAll(): T[]{
+        return this.data
+    }
+    add(val: T): T[]{
+        this.data.push(val)
+        return this.data
+    }
+}
+
+interface User{
     name: string
+    score: number
 }
 
-const collectionOne: Collection<string> = {
-    data: ['john', 'mary', 'david'],
-    name: 'john charaters'
-}
 
-const collectionTwo: Collection<number> = {
-    data: [1, 10, 23, 65, 99],
-    name: 'winning lottery numbers'
-}
+const users = new DataCollection<User>([
+    {name: "john", score: 80},
+    {name: "mary", score: 75},
+    {name: "david", score: 90},
+])
 
-function randomCollectionItem<T>(c: Collection<T>): T{
-    const i = Math.floor(Math.random() * c.data.length)
-    return c.data[i]
+users.add({name: "jen", score: 100})
 
-}
+// const user = users.loadAll();
 
-const resultOne = randomCollectionItem<string>(collectionOne)
-
-const resultTwo = randomCollectionItem(collectionTwo)
-
-console.log(resultOne, resultTwo);
-
+console.log('load one - ', users.loadOne());
+console.log('load all - ', users.loadAll());

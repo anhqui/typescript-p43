@@ -1,19 +1,29 @@
 "use strict";
 //------------------
-// Generic Interface
+// Generic Classes
 //------------------
-const collectionOne = {
-    data: ['john', 'mary', 'david'],
-    name: 'john charaters'
-};
-const collectionTwo = {
-    data: [1, 10, 23, 65, 99],
-    name: 'winning lottery numbers'
-};
-function randomCollectionItem(c) {
-    const i = Math.floor(Math.random() * c.data.length);
-    return c.data[i];
+class DataCollection {
+    constructor(data) {
+        this.data = data;
+    }
+    loadOne() {
+        const i = Math.floor(Math.random() * this.data.length);
+        return this.data[i];
+    }
+    loadAll() {
+        return this.data;
+    }
+    add(val) {
+        this.data.push(val);
+        return this.data;
+    }
 }
-const resultOne = randomCollectionItem(collectionOne);
-const resultTwo = randomCollectionItem(collectionTwo);
-console.log(resultOne, resultTwo);
+const users = new DataCollection([
+    { name: "john", score: 80 },
+    { name: "mary", score: 75 },
+    { name: "david", score: 90 },
+]);
+users.add({ name: "jen", score: 100 });
+// const user = users.loadAll();
+console.log('load one - ', users.loadOne());
+console.log('load all - ', users.loadAll());
