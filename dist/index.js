@@ -1,10 +1,19 @@
 "use strict";
 //------------------
-// Intersection Type
+// Generic Interface
 //------------------
-function addIdToValue(val) {
-    const id = Math.random();
-    return Object.assign(Object.assign({}, val), { id });
+const collectionOne = {
+    data: ['john', 'mary', 'david'],
+    name: 'john charaters'
+};
+const collectionTwo = {
+    data: [1, 10, 23, 65, 99],
+    name: 'winning lottery numbers'
+};
+function randomCollectionItem(c) {
+    const i = Math.floor(Math.random() * c.data.length);
+    return c.data[i];
 }
-const post = addIdToValue({ title: 'TypeScript for beginners', thumbsUp: 1500 });
-console.log(post.id, post.title, post.thumbsUp);
+const resultOne = randomCollectionItem(collectionOne);
+const resultTwo = randomCollectionItem(collectionTwo);
+console.log(resultOne, resultTwo);
