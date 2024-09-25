@@ -1,48 +1,32 @@
-//--------------------
-// Sets in typescript
-//--------------------
+//----------
+// enums 101
+//----------
 
-const names = new Set<string>()
-
-names.add('john')
-names.add('mary')
-names.add('david')
-names.add('john')
-// names.add(123)
-
-console.log(names);
-
-
-//-----------------------
-// Sets with custom tupes
-//-----------------------
-interface User{
-  email: string
-  score: number
+enum Priority{
+  Lowest=0,
+  Low=1,
+  Medium=2,
+  High=3,
+  Urgent=4
 }
 
 
-const user1: User = {email: 'john@gmail.com', score: 10}
-const user2: User = {email: 'mary@gmail.com', score: 20}
-
-const users = new Set<User>()
-users.add(user1)
-users.add(user2)
-users.add(user1)
-// users.add('hello')
-
-console.log(users);
-
-
-
-//---------------------------
-// Sets as function arguments
-//---------------------------
-
-function logUserEmails(users: Set<User>): void{
-  users.forEach(user => console.log(user.email))
+function addTicket(details: string, priority: Priority){
+  if(priority == Priority.Lowest){
+      // doing something
+  }
+  if(priority == 1){
+       // doing something
+  }
+  if(priority == 2){
+       // doing something
+  }
+  if(priority == 3){
+       // doing something
+  }
+  if(priority == 4){
+       // doing something
+  }
 }
 
-// logUserEmails(['hello'])
-
-logUserEmails(users)
+addTicket('fix computer', Priority.Urgent)

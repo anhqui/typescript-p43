@@ -1,27 +1,30 @@
 "use strict";
-//--------------------
-// Sets in typescript
-//--------------------
-const names = new Set();
-names.add('john');
-names.add('mary');
-names.add('david');
-names.add('john');
-// names.add(123)
-console.log(names);
-const user1 = { email: 'john@gmail.com', score: 10 };
-const user2 = { email: 'mary@gmail.com', score: 20 };
-const users = new Set();
-users.add(user1);
-users.add(user2);
-users.add(user1);
-// users.add('hello')
-console.log(users);
-//---------------------------
-// Sets as function arguments
-//---------------------------
-function logUserEmails(users) {
-    users.forEach(user => console.log(user.email));
+//----------
+// enums 101
+//----------
+var Priority;
+(function (Priority) {
+    Priority[Priority["Lowest"] = 0] = "Lowest";
+    Priority[Priority["Low"] = 1] = "Low";
+    Priority[Priority["Medium"] = 2] = "Medium";
+    Priority[Priority["High"] = 3] = "High";
+    Priority[Priority["Urgent"] = 4] = "Urgent";
+})(Priority || (Priority = {}));
+function addTicket(details, priority) {
+    if (priority == Priority.Lowest) {
+        // doing something
+    }
+    if (priority == 1) {
+        // doing something
+    }
+    if (priority == 2) {
+        // doing something
+    }
+    if (priority == 3) {
+        // doing something
+    }
+    if (priority == 4) {
+        // doing something
+    }
 }
-// logUserEmails(['hello'])
-logUserEmails(users);
+addTicket('fix computer', Priority.Urgent);
