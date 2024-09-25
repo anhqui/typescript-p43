@@ -1,27 +1,27 @@
 "use strict";
 //--------------------
-// CSV Writer Refactor
+// Sets in typescript
 //--------------------
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CSVWriter = void 0;
-const fs_1 = require("fs");
-class CSVWriter {
-    constructor(columns) {
-        this.columns = columns;
-        this.csv = this.columns.join(',') + '\n';
-    }
-    save(filename) {
-        (0, fs_1.appendFileSync)(filename, this.csv);
-        this.csv = '\n';
-        console.log('file saved to', filename);
-    }
-    addRows(values) {
-        let rows = values.map(v => this.formatRow(v));
-        this.csv += rows.join('\n');
-        console.log(this.csv);
-    }
-    formatRow(value) {
-        return this.columns.map(col => value[col]).join(',');
-    }
+const names = new Set();
+names.add('john');
+names.add('mary');
+names.add('david');
+names.add('john');
+// names.add(123)
+console.log(names);
+const user1 = { email: 'john@gmail.com', score: 10 };
+const user2 = { email: 'mary@gmail.com', score: 20 };
+const users = new Set();
+users.add(user1);
+users.add(user2);
+users.add(user1);
+// users.add('hello')
+console.log(users);
+//---------------------------
+// Sets as function arguments
+//---------------------------
+function logUserEmails(users) {
+    users.forEach(user => console.log(user.email));
 }
-exports.CSVWriter = CSVWriter;
+// logUserEmails(['hello'])
+logUserEmails(users);
